@@ -2,6 +2,10 @@
 // Get references to the tbody element, input fields and buttons
 var $tbody = document.querySelector("tbody");
 var $dateInput = document.querySelector("#date");
+var $cityInput = document.querySelector("#city");
+var $stateInput = document.querySelector("#state");
+var $countryInput = document.querySelector("#country");
+var $shapeInput = document.querySelector("#shape");
 var $searchBtn = document.querySelector("#search");
 var $resetBtn = document.querySelector("#reset");
 // Add an event listener to the searchButton and resetButton, call functions when clicked
@@ -15,7 +19,7 @@ function renderTable() {
   $tbody.innerHTML = "";
   for (var i = 0; i < filteredData.length; i++) {
     // Get get the current sighting object and its fields
-    var  sighting= filteredData[i];
+    var sighting = filteredData[i];
     var fields = Object.keys(sighting);
     // Create a new row in the tbody, set the index to be i + startingIndex
     var $row = $tbody.insertRow(i);
@@ -29,23 +33,55 @@ function renderTable() {
 }
 
 function handleSearchButtonClick() {
-  // Format the user's search by removing leading and trailing whitespace
+  // go through search items with formatted user's search terms by removing leading and trailing whitespace
+
   var filterDate = $dateInput.value.trim();
-
-  // Set filteredData to an array of all sightings whose "date" matches the filter
-  filteredData = dataSet.filter(function(sighting) {
-    var sightingDate = sighting.datetime;
-
-    // If true, add the sighting to the filteredData, otherwise don't add it to filteredData
-    return sightingDate === filterDate;
-  });
+  if (filterDate != "") {
+    filteredData = dataSet.filter(function (sighting) {
+      var sightingDate = sighting.datetime;
+      return sightingDate === filterDate;
+    });
+  };
+  var filterCity = $cityInput.value.trim().toLowerCase();
+  if (filterCity != "") {
+    filteredData = filteredData.filter(function (sighting) {
+      var sightingCity = sighting.city;
+      return sightingCity === filterCity;
+    });
+  };
+  var filterState = $stateInput.value.trim().toLowerCase();
+  if (filterState != "") {
+    filteredData = filteredData.filter(function (sighting) {
+      var sightingState = sighting.state;
+      return sightingState === filterState;
+    });
+  };
+  var filterCountry = $countryInput.value.trim().toLowerCase();
+  if (filterCountry != "") {
+    filteredData = filteredData.filter(function (sighting) {
+      var sightingCountry = sighting.country;
+      return sightingCountry === filterCountry;
+    });
+  };
+  var filterShape = $shapeInput.value.trim().toLowerCase();
+  if (filterShape != "") {
+    filteredData = filteredData.filter(function (sighting) {
+      var sightingShape = sighting.shape;
+      return sightingShape === filterShape;
+    });
+  };
   renderTable();
-}
+};
+
 
 // Reset the data and search form after a search
 function handleResetButtonClick() {
   filteredData = dataSet;
   $dateInput.value = "";
+  $cityInput.value = "";
+  $stateInput.value = "";
+  $countryInput.value = "";
+  $shapeInput.value = "";
   renderTable();
 }
 
