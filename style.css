@@ -21,3 +21,17 @@ body {
     font-size: 12px;
     padding-right: 30pt;
 }
+
+.form-control{
+    color: white;
+    background-color: darkgreen;
+}
+
+.form-control:hover{
+    color: black;
+    background-color: white;
+}
+
+#reset{
+    color:red;
+}

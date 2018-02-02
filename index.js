@@ -1,12 +1,12 @@
 
-// Get references to the tbody element, input field and button
+// Get references to the tbody element, input fields and buttons
 var $tbody = document.querySelector("tbody");
 var $dateInput = document.querySelector("#date");
 var $searchBtn = document.querySelector("#search");
-
-// Add an event listener to the searchButton, call handleSearchButtonClick when clicked
+var $resetBtn = document.querySelector("#reset");
+// Add an event listener to the searchButton and resetButton, call functions when clicked
 $searchBtn.addEventListener("click", handleSearchButtonClick);
-
+$resetBtn.addEventListener("click", handleResetButtonClick);
 // Set filteredData to dataSet initially
 var filteredData = dataSet;
 
@@ -39,6 +39,13 @@ function handleSearchButtonClick() {
     // If true, add the sighting to the filteredData, otherwise don't add it to filteredData
     return sightingDate === filterDate;
   });
+  renderTable();
+}
+
+// Reset the data and search form after a search
+function handleResetButtonClick() {
+  filteredData = dataSet;
+  $dateInput.value = "";
   renderTable();
 }
 
